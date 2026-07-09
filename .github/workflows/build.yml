@@ -18,19 +18,28 @@ jobs:
     - name: Setup Python
       uses: actions/setup-python@v5
       with:
-        python-version: "3.12"
+        python-version: '3.12'
 
-    - name: Install packages
+    - name: Install dependencies
       run: |
-        pip install -r requirements.txt
+        pip install -r Requirements.txt
         pip install pyinstaller
 
     - name: Build EXE
       run: |
-        pyinstaller --onefile --windowed main.py
+        pyinstaller ^
+          --onefile ^
+          --windowed ^
+          --hidden-import=pythoncom ^
+          --hidden-import=win32com ^
+          --hidden-import=fitz ^
+          --add-data "30.signed.pdf;." ^
+          --add-data "hd36vptw-01 (3).pdf;." ^
+          --add-data "Vietnamese.dic;." ^
+          Chinh38.py
 
     - name: Upload EXE
       uses: actions/upload-artifact@v4
       with:
-        name: Windows-EXE
+        name: Chinh38-Windows
         path: dist/*.exe
