@@ -1,0 +1,7 @@
+PyQt6
+python-docx
+requests
+pywin32
+PyMuPDF
+pypiwin32
+pywin32
